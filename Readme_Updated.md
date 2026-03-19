@@ -268,51 +268,66 @@ Delayed payouts instead of denial
 
 Transparent claim tracking
 
-🔗 Backend API Design (Spring Boot)
-🔐 Auth APIs
-POST /api/auth/login
-POST /api/auth/register
-GET  /api/auth/profile
-👷 Worker APIs
-GET /api/workers/{id}
-GET /api/workers/{id}/policies
-GET /api/workers/{id}/claims
-GET /api/workers/{id}/payouts
-📜 Policy APIs
-POST /api/policies/create
-GET  /api/policies/{id}
-GET  /api/policies/worker/{workerId}
-🌦️ Event APIs
-POST /api/events/generate
-GET  /api/events
-GET  /api/events/{id}
-📦 Claim APIs
-POST /api/claims/create
-GET  /api/claims/{id}
-GET  /api/claims/worker/{workerId}
-PATCH /api/claims/{id}/status
-💸 Payout APIs
-POST /api/payouts/process
-GET  /api/payouts/{id}
-GET  /api/payouts/worker/{workerId}
-🛡️ Fraud APIs
-POST /api/fraud/analyze
-GET  /api/fraud/logs
-GET  /api/fraud/clusters
-⭐ Trust APIs
-GET  /api/trust/{workerId}
-POST /api/trust/update
-📊 Admin APIs
-GET  /api/admin/analytics
-GET  /api/admin/claims
-GET  /api/admin/fraud
-POST /api/admin/override-claim
+## 🔗 Backend API Design (Spring Boot)
+
+All endpoints are listed below in a unified format.
+
+```http id="all-endpoints"
+# 🔐 Auth APIs
+POST   /api/auth/login
+POST   /api/auth/register
+GET    /api/auth/profile
+
+# 👷 Worker APIs
+GET    /api/workers/{id}
+GET    /api/workers/{id}/policies
+GET    /api/workers/{id}/claims
+GET    /api/workers/{id}/payouts
+
+# 📜 Policy APIs
+POST   /api/policies/create
+GET    /api/policies/{id}
+GET    /api/policies/worker/{workerId}
+
+# 🌦️ Event APIs
+POST   /api/events/generate
+GET    /api/events
+GET    /api/events/{id}
+
+# 📦 Claim APIs
+POST   /api/claims/create
+GET    /api/claims/{id}
+GET    /api/claims/worker/{workerId}
+PATCH  /api/claims/{id}/status
+
+# 💸 Payout APIs
+POST   /api/payouts/process
+GET    /api/payouts/{id}
+GET    /api/payouts/worker/{workerId}
+
+# 🛡️ Fraud APIs
+POST   /api/fraud/analyze
+GET    /api/fraud/logs
+GET    /api/fraud/clusters
+
+# ⭐ Trust APIs
+GET    /api/trust/{workerId}
+POST   /api/trust/update
+
+# 📊 Admin APIs
+GET    /api/admin/analytics
+GET    /api/admin/claims
+GET    /api/admin/fraud
+POST   /api/admin/override-claim
+```
+
 🛡️ Adversarial Defense (Summary)
 Traditional System	ParametriX
 GPS-only validation	Multi-signal verification
 Static rules	AI + rules hybrid
 No cluster detection	Fraud ring detection
 Binary decisions	Trust-based system
+
 💾 Data Model
 workers
 policies
