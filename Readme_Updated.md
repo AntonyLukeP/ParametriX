@@ -41,6 +41,11 @@ ParametriX uses a parametric insurance model where:
 
 ---
 
+**Core Pipelines:**
+
+	External Data → Trigger Engine → Event Creation → Worker Matching
+	→ Fraud Detection → Claim Engine → Payout Engine → Dashboard
+
 ## System Design Philosophy
 
 - Event-driven automation (zero manual claims)  
