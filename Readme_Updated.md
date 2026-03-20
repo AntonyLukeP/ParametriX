@@ -1,59 +1,58 @@
 # ParametriX  
-## AI-Powered Parametric Insurance for Gig Workers  
-
+### AI-Powered Parametric Insurance for Gig Workers  
 **DEVTrails 2026 – Phase 1 Submission**
 
 ---
 
-## 🚀 Overview
+## Overview
 
-ParametriX is a **fully automated parametric insurance platform** designed for gig economy delivery workers. It provides real-time compensation for income loss caused by environmental and operational disruptions such as:
+ParametriX is a fully automated parametric insurance platform designed for gig economy delivery workers. It provides real-time compensation for income loss caused by environmental and operational disruptions such as:
 
-- 🌧️ Heavy Rainfall  
-- 🌡️ Extreme Heat  
-- 🌫️ Air Pollution (AQI)  
-- 🏗️ Infrastructure Failures  
+- Heavy Rainfall  
+- Extreme Heat  
+- Air Pollution (AQI)  
+- Infrastructure Failures  
 
 Unlike traditional insurance, ParametriX eliminates manual claims and uses:
 
-- ⚡ Event-driven triggers  
-- 🤖 AI-based validation  
+- Event-driven triggers  
+- AI-based validation  
 
-to process payouts **instantly and securely**.
+to process payouts instantly and securely.
 
 ---
 
-## ❗ Problem Statement
+## Problem Statement
 
 Gig workers face immediate income disruption due to real-world conditions, but:
 
-- ❌ Claims are manual and delayed  
-- ❌ Verification is inefficient  
-- ❌ Fraud detection is weak (GPS-only)  
-- ❌ Payout cycles are too slow  
+- Claims are manual and delayed  
+- Verification is inefficient  
+- Fraud detection is weak (GPS-only)  
+- Payout cycles are too slow  
 
 ---
 
-## 💡 Solution
+## Solution
 
-ParametriX uses a **parametric insurance model**, where:
+ParametriX uses a parametric insurance model where:
 
-> 💥 Payouts are triggered by **objective external data**, not manual claims.
-
----
-
-## 🧠 System Design Philosophy
-
-- ⚙️ Event-driven automation (zero manual claims)  
-- 🔍 Multi-signal verification (beyond GPS)  
-- 🤖 AI-assisted decision making  
-- ☁️ Stateless & scalable architecture  
+- Payouts are triggered by objective external data instead of manual claims.
 
 ---
 
-## 🏗️ High-Level Architecture
+## System Design Philosophy
 
-```plaintext
+- Event-driven automation (zero manual claims)  
+- Multi-signal verification (beyond GPS)  
+- AI-assisted decision making  
+- Stateless and scalable architecture  
+
+---
+
+## High-Level Architecture
+
+```text
                 ┌───────────────────────┐
                 │    React Frontend     │
                 │ (Worker + Admin UI)   │
@@ -72,324 +71,344 @@ ParametriX uses a **parametric insurance model**, where:
 └──────────────┘   └──────────────┘   └──────────────┘
 ```
 
-## 🔄 Core System Pipeline
+---
 
-```plaintext
+## Core System Pipeline
+
+
 External Data
-     ↓
+↓
 Trigger Engine
-     ↓
+↓
 Disruption Events
-     ↓
+↓
 Worker Matching
-     ↓
+↓
 Fraud Detection
-     ↓
+↓
 Claim Engine
-     ↓
+↓
 Payout Engine
-     ↓
+↓
 Dashboard / Analytics
-```
 
-⚙️ Core Modules
-1. 🌦️ Trigger Engine
 
-Runs every 5 minutes (scheduler/cron)
+---
 
-Converts environmental data into structured events
+## Core Modules
 
-Rules:
-IF rainfall > threshold      → HEAVY_RAIN
-IF AQI > threshold           → POLLUTION_ALERT
-IF temperature > threshold   → EXTREME_HEAT
+### Trigger Engine
 
-📤 Output Table: disruption_events
+- Runs every 5 minutes (scheduler/cron)  
+- Converts environmental data into structured events  
 
-2. 👷 Worker Matching Engine
+**Rules:**
+- IF rainfall > threshold → HEAVY_RAIN  
+- IF AQI > threshold → POLLUTION_ALERT  
+- IF temperature > threshold → EXTREME_HEAT  
+
+**Output Table:** `disruption_events`
+
+---
+
+### Worker Matching Engine
 
 Matches affected workers based on:
 
-📍 Zone/location
+- Location/zone  
+- Active policy  
+- Activity status  
 
-📜 Active policy
+**Tables:**
+- `workers`  
+- `policies`  
+- `worker_activity`  
 
-📊 Activity status
+---
 
-Tables:
-
-workers
-
-policies
-
-worker_activity
-
-3. 📦 Claim Engine
+### Claim Engine
 
 Fully automated (zero-touch claims)
 
-Claim Lifecycle:
+**Claim Lifecycle:**
+
+
 CREATED → UNDER_REVIEW → APPROVED → PAID
-                      ↓
-                   FLAGGED → REJECTED
-4. 💸 Payout Engine
+↓
+FLAGGED → REJECTED
 
-Instant payout after approval
 
-Simulated via:
+---
 
-UPI Mock
+### Payout Engine
 
-Razorpay Sandbox
+- Instant payout after approval  
+- Simulated via:
+  - UPI Mock  
+  - Razorpay Sandbox  
 
-🤖 AI/ML System
-🔢 Risk Scoring Engine
+---
 
-Models:
+## AI/ML System
 
-Random Forest
+### Risk Scoring Engine
 
-Gradient Boosting
+**Models:**
+- Random Forest  
+- Gradient Boosting  
 
-Output:
+**Output:**
+
 risk_score ∈ [0,1]
 
-premium  = base_premium × (1 + risk_score)
+
+**Formulas:**
+
+premium = base_premium × (1 + risk_score)
 coverage = weekly_income × protection_factor
-🛡️ Fraud Detection Engine
 
-Model: Isolation Forest
 
-Features:
+---
 
-movement_speed
+### Fraud Detection Engine
 
-gps_variance
+**Model:**
+- Isolation Forest  
 
-idle_time
+**Features:**
+- movement_speed  
+- gps_variance  
+- idle_time  
+- order_frequency  
+- zone_switch_rate  
 
-order_frequency
+**Output:**
 
-zone_switch_rate
-
-Output:
 fraud_score ∈ [0,1]
-🛡️ Adversarial Defense & Anti-Spoofing
-🚨 Threat Model
+
+
+---
+
+## Adversarial Defense and Anti-Spoofing
+
+### Threat Model
 
 Fraudsters may:
 
-Spoof GPS
+- Spoof GPS  
+- Fake presence in disruption zones  
+- Trigger mass payouts  
+- Drain liquidity  
 
-Fake presence in disruption zones
+GPS-only validation is exploitable.
 
-Trigger mass payouts
+---
 
-Drain liquidity
+### Multi-Signal Verification
 
-❌ GPS-only validation is exploitable
+**Data Sources:**
 
-🧠 Multi-Signal Verification
-Data Sources:
+- GPS coordinates  
+- Movement patterns  
+- Order activity  
+- IP location  
+- Session telemetry  
+- Behavioral history  
 
-📍 GPS coordinates
+---
 
-🚶 Movement patterns
+### Feature Engineering
 
-📦 Order activity
+- movement_speed  
+- route_continuity_score  
+- orders_per_hour  
+- idle_time_ratio  
+- gps_jump_distance  
+- ip_location_mismatch_flag  
+- session_stability_score  
+- behavior_similarity_score  
+- zone_claim_density  
 
-🌐 IP location
+---
 
-📱 Session telemetry
+### Fraud Detection Pipeline
 
-📈 Behavioral history
+#### Layer 1: Rule-Based
 
-⚙️ Feature Engineering
-movement_speed
-route_continuity_score
-orders_per_hour
-idle_time_ratio
-gps_jump_distance
-ip_location_mismatch_flag
-session_stability_score
-behavior_similarity_score
-zone_claim_density
-🧪 Fraud Detection Pipeline
-Layer 1: Rule-Based
+- Worker offline → Reject  
+- No activity → Suspicious  
+- GPS anomaly → Flag  
+- IP mismatch → Reject  
 
-Worker offline → Reject
+#### Layer 2: AI-Based
 
-No activity → Suspicious
+- Isolation Forest detects anomalies  
+- Outputs `fraud_score ∈ [0,1]`  
 
-GPS anomaly → Flag
+---
 
-IP mismatch → Reject
+### Fraud Ring Detection
 
-Layer 2: AI-Based
 
-Isolation Forest detects anomalies
-
-Output → fraud_score ∈ [0,1]
-🕸️ Fraud Ring Detection
-IF high_claim_density
-AND short_time_window
-AND high_behavior_similarity
+IF high_claim_density AND short_time_window AND high_behavior_similarity
 THEN FRAUD_CLUSTER
-⭐ Trust Score Engine
+
+
+---
+
+### Trust Score Engine
+
+
 trust_score ∈ [0,1]
-Trust Score	Action
-> 0.7	Instant payout
-0.4–0.7	Delayed verification
-< 0.4	Manual review
-⚖️ Claim Decision Engine
-Inputs:
 
-fraud_score
 
-trust_score
+| Trust Score | Action                |
+|------------|---------------------|
+| > 0.7      | Instant payout       |
+| 0.4–0.7    | Delayed verification |
+| < 0.4      | Manual review        |
 
-event validity
+---
 
-Outputs:
+### Claim Decision Engine
 
-✅ APPROVED
+**Inputs:**
+- fraud_score  
+- trust_score  
+- event validity  
 
-⚠️ FLAGGED
+**Outputs:**
+- APPROVED  
+- FLAGGED  
+- REJECTED  
 
-❌ REJECTED
+---
 
-👨‍💻 UX Fairness Layer
+## UX Fairness Layer
 
-No instant rejection
+- No instant rejection  
+- "Under Verification" status  
+- Delayed payouts instead of denial  
+- Transparent claim tracking  
 
-"Under Verification" status
+---
 
-Delayed payouts instead of denial
+## Backend API Design (Spring Boot)
 
-Transparent claim tracking
+### Auth APIs
 
-## 🔗 Backend API Design (Spring Boot)
+POST /api/auth/login
+POST /api/auth/register
+GET /api/auth/profile
 
-All endpoints are listed below in a unified format.
 
-```http id="all-endpoints"
-# 🔐 Auth APIs
-POST   /api/auth/login
-POST   /api/auth/register
-GET    /api/auth/profile
+### Worker APIs
 
-# 👷 Worker APIs
-GET    /api/workers/{id}
-GET    /api/workers/{id}/policies
-GET    /api/workers/{id}/claims
-GET    /api/workers/{id}/payouts
+GET /api/workers/{id}
+GET /api/workers/{id}/policies
+GET /api/workers/{id}/claims
+GET /api/workers/{id}/payouts
 
-# 📜 Policy APIs
-POST   /api/policies/create
-GET    /api/policies/{id}
-GET    /api/policies/worker/{workerId}
 
-# 🌦️ Event APIs
-POST   /api/events/generate
-GET    /api/events
-GET    /api/events/{id}
+### Policy APIs
 
-# 📦 Claim APIs
-POST   /api/claims/create
-GET    /api/claims/{id}
-GET    /api/claims/worker/{workerId}
-PATCH  /api/claims/{id}/status
+POST /api/policies/create
+GET /api/policies/{id}
+GET /api/policies/worker/{workerId}
 
-# 💸 Payout APIs
-POST   /api/payouts/process
-GET    /api/payouts/{id}
-GET    /api/payouts/worker/{workerId}
 
-# 🛡️ Fraud APIs
-POST   /api/fraud/analyze
-GET    /api/fraud/logs
-GET    /api/fraud/clusters
+### Event APIs
 
-# ⭐ Trust APIs
-GET    /api/trust/{workerId}
-POST   /api/trust/update
+POST /api/events/generate
+GET /api/events
+GET /api/events/{id}
 
-# 📊 Admin APIs
-GET    /api/admin/analytics
-GET    /api/admin/claims
-GET    /api/admin/fraud
-POST   /api/admin/override-claim
-```
 
-🛡️ Adversarial Defense (Summary)
-Traditional System	ParametriX
-GPS-only validation	Multi-signal verification
-Static rules	AI + rules hybrid
-No cluster detection	Fraud ring detection
-Binary decisions	Trust-based system
+### Claim APIs
 
-💾 Data Model
-workers
-policies
-environment_data
-disruption_events
-worker_activity
-claims
-payouts
-fraud_logs
-trust_scores
-fraud_clusters
-🛣️ Development Roadmap
-Phase 1
+POST /api/claims/create
+GET /api/claims/{id}
+GET /api/claims/worker/{workerId}
+PATCH /api/claims/{id}/status
 
-Architecture
 
-AI strategy
+### Payout APIs
 
-Fraud defense design
+POST /api/payouts/process
+GET /api/payouts/{id}
+GET /api/payouts/worker/{workerId}
 
-Phase 2
 
-Backend APIs
+### Fraud APIs
 
-Trigger Engine
+POST /api/fraud/analyze
+GET /api/fraud/logs
+GET /api/fraud/clusters
 
-Risk scoring
 
-Phase 3
+### Trust APIs
 
-Fraud detection system
+GET /api/trust/{workerId}
+POST /api/trust/update
 
-Real-time payouts
 
-Dashboard
+### Admin APIs
 
-🏁 Conclusion
+GET /api/admin/analytics
+GET /api/admin/claims
+GET /api/admin/fraud
+POST /api/admin/override-claim
+
+
+---
+
+## Adversarial Defense Summary
+
+| Traditional System      | ParametriX                  |
+|------------------------|-----------------------------|
+| GPS-only validation    | Multi-signal verification   |
+| Static rules           | AI + rules hybrid           |
+| No cluster detection   | Fraud ring detection        |
+| Binary decisions       | Trust-based system          |
+
+---
+
+## Data Model
+
+- workers  
+- policies  
+- environment_data  
+- disruption_events  
+- worker_activity  
+- claims  
+- payouts  
+- fraud_logs  
+- trust_scores  
+- fraud_clusters  
+
+---
+
+
+
+## Conclusion
 
 ParametriX combines:
 
-⚡ Event-driven automation
+- Event-driven automation  
+- AI-powered risk modeling  
+- Multi-layer fraud detection  
+- Real-time payouts  
 
-🤖 AI-powered risk modeling
+**Outcome:**
+- Secure against fraud rings  
+- Fair for genuine users  
+- Scalable for real-world deployment  
 
-🛡️ Multi-layer fraud detection
+---
 
-💸 Real-time payouts
+## Future Enhancements
 
-✅ Outcome:
-
-Secure against fraud rings
-
-Fair for genuine users
-
-Scalable for real-world deployment
-
-🔮 Future Enhancements
-
-Kafka-based real-time streaming
-
-Graph-based fraud detection
-
-Device-level signal integration
-
-Reinforcement learning pricing
+- Kafka-based real-time streaming  
+- Graph-based fraud detection  
+- Device-level signal integration  
+- Reinforcement learning pricing 
